@@ -10,7 +10,7 @@ defmodule RateLimitWeb.PageController do
     ip = conn.remote_ip
       |> Tuple.to_list
       |> Enum.join(".")
-    case Hammer.check_rate("get_timestamp:#{ip}", 60_000, 3) do
+    case Hammer.check_rate("get_timestamp:#{ip}", 60_000, 60) do
       {:allow, _count} ->
         Logger.log(:info, "Rate-Limit ok, generating timestamp")
         now = DateTime.utc_now()
